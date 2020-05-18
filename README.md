@@ -13,3 +13,10 @@ There are 3 base models: Model S, Model X, and Model 3.
 
 Logged in users can order models, Admins can add new models to the site, and watch the log.
 
+Using:
+HTML
+CSS
+vanilla Javascript
+ASP.NET Core
+
+
