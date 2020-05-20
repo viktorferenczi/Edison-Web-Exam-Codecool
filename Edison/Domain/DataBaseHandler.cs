@@ -8,7 +8,7 @@ namespace Edison.Domain
 {
     public class DataBaseHandler
     {
-        public static readonly string connectingString = $"Host=localhost;Username=postgres;Password=admin;Database=Edison";
+        public static readonly string connectingString = $"Host=localhost;Username=postgres;Password=admin;Database=edison";
 
         public bool Login(string username, string password)
         {
@@ -39,14 +39,22 @@ namespace Edison.Domain
 
         public void Register(string username, string password, string usertype)
         {
-
-            using (var conn = new NpgsqlConnection(connectingString))
+            try
             {
-                conn.Open();
-                var command = new NpgsqlCommand($"INSERT INTO users(user_name,user_password,is_admin) VALUES ('{username}','{password}','{usertype}')", conn);
-                command.ExecuteNonQuery();
-                conn.Close();
+                using (var conn = new NpgsqlConnection(connectingString))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand($"INSERT INTO users(user_name,user_password,is_admin) VALUES ('{username}','{password}','{usertype}')", conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                }
+
             }
+            catch (Npgsql.PostgresException)
+            {
+                throw new Exception("Username is already used.");
+            }
+           
         }
 
 

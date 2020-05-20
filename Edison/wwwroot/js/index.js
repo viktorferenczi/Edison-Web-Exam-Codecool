@@ -1,4 +1,8 @@
-﻿/* ----- Deleting all cookies when the page is loading ----- */
+﻿let userName
+let userPass
+
+
+/* ----- Deleting all cookies when the page is loading ----- */
 function deleteAllCookies() {
     var xhr = new XMLHttpRequest();
     xhr.open('Get', '/Account/Logout');
@@ -25,22 +29,41 @@ function register() {
             document.getElementById("required-password").style.display = "none";
         }
     }
-    else {
-        document.getElementById("register_table").style.display = "none"
-        userDetais = userPass + ", " + userName;
-        document.getElementById("user_details").innerText = userDetais;
-    }
+
+
     function reqListener() {
         console.log(this.responseText);
     }
+
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", reqListener)
     xhr.open('Post', '/Account/Register');
 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfully
+                document.getElementById("register_table").style.display = "none"
+                document.getElementById("home_view").style.display = "block"
+                document.getElementById("home-title").style.display = "block"
+                document.getElementById("home-paragraph").style.display = "block"
+                document.getElementById("home-paragraph").innerText = "Register successful! Log in to select your model and customize it."
+            } else if (status === 500) {
+                // There has been an error with the request!
+                console.log('failed register')
+                let failedRegister = document.getElementById('failed-register')
+                failedRegister.innerText = "Username is already taken."
+                failedRegister.style.display = "block"
+            }
+        }
+
+    }
     var data = new FormData();
     data.append('username', userName);
     data.append('password', userPass);
     xhr.send(data);
+    
 }
 /* -----  register function ends -----  */
 
@@ -77,16 +100,18 @@ function login() {
                 var status = xhr.status
                 if (status === 0 || (status >= 200 && status < 400)) {
                     // The request has been completed successfully
-                    console.log(xhr.responseText)
-                    userDetais = "Username: " + userName + ", Userpassword: " + userPass
+                    console.log(xhr.responseText)                 
                     document.getElementById("login_table").style.display = "none"
-                    document.getElementById("user_details").innerText = userDetais
                     document.getElementById("login-button").style.display = "none"
                     document.getElementById("registration-button").style.display = "none"
                     document.getElementById("logout-button").style.display = "block"
+                    document.getElementById("home_view").style.display = "block"
+                    document.getElementById("home-title").style.display = "block"
+                    document.getElementById("home-paragraph").style.display = "block"
+                    document.getElementById("home-paragraph").innerText = "Hello $userName, select your model and customize it.".replace('$userName', userName)
 
                     if (xhr.responseText == "admin") {
-                        document.getElementById("adminlog-button").style.display = "block"
+                       
                     }
 
                 } else if (status === 500) {
@@ -116,6 +141,10 @@ function logout() {
     document.getElementById("logout-button").style.display = "none"
     document.getElementById("login-button").style.display = "block"
     document.getElementById("registration-button").style.display = "block"
+    document.getElementById("home_view").style.display = "block"
+    document.getElementById("home-title").style.display = "block"
+    document.getElementById("home-paragraph").style.display = "block"
+    document.getElementById("home-paragraph").innerText = "Please select your model and customize it."
     var xhr = new XMLHttpRequest();
     xhr.open('Get', '/Account/Logout');
     xhr.send();
@@ -143,6 +172,7 @@ function showLogin() {
     document.getElementById("register_table").style.display = "none"
     document.getElementById("login_table").style.display = "block"
     document.getElementById("login-button").style.display = "block"
+    document.getElementsByTagName("BODY")[0].filter = "blur(8px)"
 }
 /* -----  showLogin function ends -----  */
 
@@ -156,6 +186,8 @@ function showHome() {
 
 }
 /* -----  showHome function ends -----  */
+
+
 
 
 

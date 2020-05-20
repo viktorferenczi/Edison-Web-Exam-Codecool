@@ -4,10 +4,12 @@
     <link href="css/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
+
+<body onload="deleteAllCookies()">
+
 
     <div class="navbar">
-        <img class="tesla-logo" style="margin-left:5px;" src="tesla-icon-15.png" onclick="" />
+        <img class="tesla-logo" style="margin-left:5px;" src="tesla-icon-15.png" onclick="showHome()" />
         <div id="registration-button" style="float:right">
             <button class="button" onclick="showRegister()" style="margin-left:5px;"><span>Register</span></button>
         </div>
@@ -19,13 +21,17 @@
         </div>
     </div>
 
+
+
     <div id="home_view">
-        <h1 id="home-title"> Welcome! </h1>
-        <p id="home-paragraph"> You have just visited ScheduleMaster2000 singlepage app.  </p>
+        <p id="home-title">Build your own tesla with a singlepage app </p>
+        <p id="home-paragraph">Log in and please select your model to customize it.</p>
     </div>
+
 
     <div id="register_table">
         <p id="register-title">Register</p><br>
+        <p id="failed-register"></p>
         <input placeholder="User name" type="text" id="user-name"> <p id="required-username">Required!</p><br>
         <input placeholder="Password" type="text" id="user-pass"> <p id="required-password">Required!</p><br>
         <button onclick="register()" id="register-button">Register</button>
@@ -38,6 +44,10 @@
         <input placeholder="Password" type="text" id="user-pass-login"> <p id="required-password-login">Required!</p><br>
         <button onclick="login()" id="login-user-button">Log in</button>
     </div>
+
+    <button class="model-s" onclick="">S</button>
+    <button class="model-x" onclick="">X</button>
+    <button class="model-3" onclick="">3</button>
 
     <script src="js/index.js"></script>
 </body>
