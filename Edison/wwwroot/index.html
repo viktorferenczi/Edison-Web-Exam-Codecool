@@ -1,6 +1,6 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title>Edison</title>
     <link href="css/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -22,7 +22,6 @@
     </div>
 
 
-
     <div id="home_view">
         <p id="home-title">Build your own tesla with a singlepage app </p>
         <p id="home-paragraph">Log in and please select your model to customize it.</p>
@@ -37,6 +36,7 @@
         <button onclick="register()" id="register-button">Register</button>
     </div>
 
+
     <div id="login_table">
         <p id="login-title">Login</p><br>
         <p id="failed-login"></p>
@@ -45,9 +45,93 @@
         <button onclick="login()" id="login-user-button">Log in</button>
     </div>
 
-    <button class="model-s" onclick="">S</button>
-    <button class="model-x" onclick="">X</button>
-    <button class="model-3" onclick="">3</button>
+
+    <div id="model_s_page">
+
+
+        <img id="model-s-car-pic" src="" />
+        <p id="autopilot-model-s-colorp">Please select the color you want to choose to your model.</p>
+        <p id="autopilot-model-s">Autopilot advanced safety and convenience features are designed to
+        assist you with the most burdensome parts of driving.</p>
+
+        <div id="model-s-car-autopilot-preview">
+
+            <!--<video width="620" height="440" autoplay loop>
+        <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+    </video>-->
+            <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop/>
+
+           
+
+        </div>
+
+        <div id="model-s-color-white">
+            <img src="/media/Tesla/white_color.jpg" />
+        </div>
+
+        <div id="model-s-color-black">
+            <img src="/media/Tesla/black_color.jpg" />
+        </div>
+
+        <div id="model-s-color-red">
+            <img src="/media/Tesla/red_color.jpg" />
+        </div>
+
+     
+
+        <div class="buy-model-s" id ="buy-model-s">
+            <!--<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+            <script>paypal.Buttons().render('body');</script>-->
+        </div>
+    </div>
+       
+        
+   
+
+
+    <div id="model_x_page">
+
+        <div id="model-x-car-preview"></div>
+        <div id="model-x-car-autopilot-preview">
+            <video width="620" height="440" autoplay loop>
+                <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div id="model-x-color-white"></div>
+        <div id="model-x-color-black"></div>
+        <div id="model-x-color-red"></div>
+
+       
+
+
+        <button id="buy-model-x">Pay now</button>
+    </div>
+
+
+    <div id="model_3_page">
+
+        <div id="model-3-car-preview"></div>
+        <div id="model-3-car-autopilot-preview">
+            <video width="620" height="440" autoplay loop>
+                <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div id="model-3-color-white"></div>
+        <div id="model-3-color-black"></div>
+        <div id="model-3-color-red"></div>
+
+     
+
+        <button id="buy-model-3">Pay now</button>
+    </div>
+
+
+    <button class="model-s" id="model-s" onclick="showModelSView()" style="opacity:0" >S</button>
+    <button class="model-x" id="model-x"  onclick="showModelXView()" style="opacity:0" >X</button>
+    <button class="model-3" id="model-3"  onclick="showModel3View()" style="opacity:0" >3</button>
+
 
     <script src="js/index.js"></script>
 </body>

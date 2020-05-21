@@ -1,5 +1,7 @@
-﻿let userName
-let userPass
+﻿let userName;
+let userPass;
+let carModel;
+let carColor;
 
 
 /* ----- Deleting all cookies when the page is loading ----- */
@@ -160,6 +162,9 @@ function showRegister() {
     document.getElementById("register_table").style.display = "block"
     document.getElementById("login_table").style.display = "none"
     document.getElementById("register-button").style.display = "block"
+    document.getElementById("model-3").style.display = "none"
+    document.getElementById("model-x").style.display = "none"
+    document.getElementById("model-s").style.display = "none"
 
 }
 /* -----  showregister function ends -----  */
@@ -172,7 +177,9 @@ function showLogin() {
     document.getElementById("register_table").style.display = "none"
     document.getElementById("login_table").style.display = "block"
     document.getElementById("login-button").style.display = "block"
-    document.getElementsByTagName("BODY")[0].filter = "blur(8px)"
+    document.getElementById("model-3").style.display = "none"
+    document.getElementById("model-x").style.display = "none"
+    document.getElementById("model-s").style.display = "none"
 }
 /* -----  showLogin function ends -----  */
 
@@ -183,11 +190,88 @@ function showHome() {
     document.getElementById("home_view").style.display = "block"
     document.getElementById("register_table").style.display = "none"
     document.getElementById("login_table").style.display = "none"
+    document.getElementById("model-3").style.display = "block"
+    document.getElementById("model-x").style.display = "block"
+    document.getElementById("model-s").style.display = "block"
 
 }
 /* -----  showHome function ends -----  */
 
 
+/* -----  showModel3View function starts, model 3 on page -----  */
+function showModel3View() {
+    document.getElementById("model_3_page").style.display = "block"
+    document.body.style.background = "none"
+    document.getElementById("home_view").style.display = "none"
+    document.getElementById("model-3").style.display = "none"
+    document.getElementById("model-s").style.display = "none"
+    document.getElementById("model-x").style.display = "none"
+    document.getElementsByClassName("model-3").style.display = "none"
+}
+/* -----  showModel3View function ends -----  */
 
 
+/* -----  showModelSView function starts, model S on page -----  */
+function showModelSView() {
+    document.getElementById("model_s_page").style.display = "block"
 
+   
+
+    document.getElementById("model-s-car-pic").style.display = "block"
+
+    document.getElementById("model-s-color-black").style.display = "block"
+    document.getElementById("model-s-color-white").style.display = "block"
+    document.getElementById("model-s-color-red").style.display = "block"
+
+    document.getElementById("model-s-color-black").addEventListener("click",
+        () =>
+            document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_black.png",
+            carColor = "Black",
+            carModel = "Model S",
+            console.log("Data: " + carColor + " " + carModel)
+         )
+
+
+    document.getElementById("model-s-color-white").addEventListener("click",
+        () =>
+            document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png",
+            carColor = "White",
+            carModel = "Model S",
+            console.log("Data: " + carColor + " " + carModel)
+        )
+
+
+    document.getElementById("model-s-color-red").addEventListener("click",
+        () =>
+            document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_red.png",
+            carColor = "Red",
+            carModel = "Model S",
+            console.log("Data: " + carColor + " " + carModel)
+        )
+
+
+    document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
+
+    document.getElementById("model-s-car-autopilot-preview").style.display = "block"
+   
+
+    document.body.style.background = "none"
+    document.getElementById("home_view").style.display = "none"
+    document.getElementById("model-3").style.display = "none"
+    document.getElementById("model-s").style.display = "none"
+    document.getElementById("model-x").style.display = "none"
+}
+/* -----  showModelSView function ends -----  */
+
+
+/* -----  showModelXView function starts, model X on page -----  */
+function showModelXView() {
+    document.getElementById("model_x_page").style.display = "block"
+    document.body.style.background = "none"
+    document.getElementById("home_view").style.display = "none"
+    document.getElementById("model-3").style.display = "none"
+    document.getElementById("model-s").style.display = "none"
+    document.getElementById("model-x").style.display = "none"
+    document.getElementsByClassName("model-3").style.display = "none"
+}
+/* -----  showModelXView function ends -----  */
