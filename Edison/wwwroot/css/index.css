@@ -279,6 +279,10 @@
     height: 290px; 
 }
 
+
+
+
+
 #model_s_page {
     display: none;
     position: absolute;
@@ -286,6 +290,121 @@
     height: 100%;
     background-color: white;
 }
+
+#model-s-homebutton {
+    position:absolute;
+    margin-left:50px;
+    margin-top:800px;
+    z-index:1;
+}
+
+#model-s-paybutton {
+    position: absolute;
+    margin-left: 1650px;
+    margin-top: 800px;
+    z-index: 1;
+}
+
+
+#model-s-car-autopilot-preview {
+    display: none;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    margin-top: 210px;
+    margin-left: calc(74% - 400px);
+    background-color: white;
+}
+
+#model-s-car-pic {
+    position: absolute;
+    display: none;
+    margin-top: 180px;
+}
+
+#left-border{
+    position:absolute;
+  
+    margin-left:1px;
+    border:solid;
+    border-bottom-color:grey;
+    border-bottom-style:solid;
+    border-left-style:none;
+    border-right-color:grey;
+    border-top-color:grey;
+    height:100%;
+    width:45%;
+}
+
+#right-border {
+    
+    border: solid;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: grey;
+    border-top-color: grey;
+    height: 100%;
+    width: 100%;
+}
+
+
+#model-s-color-white {
+    position: absolute;
+    display: none;
+    margin-left: 400px;
+ 
+}
+
+#model-s-color-black {
+    position: absolute;
+    display: none;
+    margin-left:450px;
+}
+
+#model-s-color-red {
+    position: absolute;
+    display: none;
+    margin-left: 504px;
+    margin-top:2px;
+}
+
+#model-s-wheel1 {
+    position: absolute;
+    display: none;
+    margin-left: 604px;
+    margin-top: 2px;
+}
+
+#model-s-wheel2 {
+    position: absolute;
+    display: none;
+    margin-left: 654px;
+    margin-top: 1px;
+}
+
+#autopilot-model-s {
+    position: absolute;
+    margin-top: 80px;
+    margin-left: calc(70% - 400px);
+    font-size: large;
+    width: 40%;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#autopilot-model-s-colorp {
+    position: absolute;
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    margin-top:100px;
+    margin-left:240px;
+    margin-bottom:100px;
+}
+
+
+
 
 #model_x_page {
     display: none;
@@ -295,6 +414,118 @@
     background-color: white;
 }
 
+#model-x-homebutton {
+    position: absolute;
+    margin-left: 50px;
+    margin-top: 800px;
+    z-index: 1;
+}
+
+#model-x-paybutton {
+    position: absolute;
+    margin-left: 1650px;
+    margin-top: 800px;
+    z-index: 1;
+}
+
+
+#model-x-car-autopilot-preview {
+    display: none;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    margin-top: 210px;
+    margin-left: calc(74% - 400px);
+    background-color: white;
+}
+
+#model-x-car-pic {
+    position: absolute;
+    display: none;
+    margin-top: 180px;
+}
+
+#left-border-x {
+    position: absolute;
+    margin-left: 1px;
+    border: solid;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: grey;
+    border-top-color: grey;
+    height: 100%;
+    width: 45%;
+}
+
+#right-border-x {
+    border: solid;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: grey;
+    border-top-color: grey;
+    height: 100%;
+    width: 100%;
+}
+
+
+#model-x-color-white {
+    position: absolute;
+    display: none;
+    margin-left: 400px;
+}
+
+#model-x-color-black {
+    position: absolute;
+    display: none;
+    margin-left: 450px;
+}
+
+#model-x-color-red {
+    position: absolute;
+    display: none;
+    margin-left: 504px;
+    margin-top: 2px;
+}
+
+#model-x-wheel1 {
+    position: absolute;
+    display: none;
+    margin-left: 604px;
+
+}
+
+#model-x-wheel2 {
+    position: absolute;
+    display: none;
+    margin-left: 654px;
+    margin-top: 1px;
+}
+
+#autopilot-model-x {
+    position: absolute;
+    margin-top: 80px;
+    margin-left: calc(70% - 400px);
+    font-size: large;
+    width: 40%;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#autopilot-model-x-colorp {
+    position: absolute;
+    font-size: large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-left: 240px;
+    margin-bottom: 100px;
+}
+
+
+
+
 #model_3_page {
     display: none;
     position: absolute;
@@ -303,62 +534,114 @@
     background-color: white;
 }
 
+#model-3-homebutton {
+    position: absolute;
+    margin-left: 50px;
+    margin-top: 800px;
+    z-index: 1;
+}
 
-#model-s-car-autopilot-preview {
+#model-3-paybutton {
+    position: absolute;
+    margin-left: 1650px;
+    margin-top: 800px;
+    z-index: 1;
+}
+
+
+#model-3-car-autopilot-preview {
     display: none;
     position: absolute;
     width: 800px;
     height: 600px;
-    margin-top: 250px;
-    margin-left: calc(70% - 400px);
+    margin-top: 210px;
+    margin-left: calc(74% - 400px);
     background-color: white;
 }
 
-#model-s-car-pic {
+#model-3-car-pic {
     position: absolute;
     display: none;
-    margin-top: 230px;
+    margin-top: 180px;
 }
 
-#model-s-color-white {
+#left-border-3 {
     position: absolute;
-    margin-left: calc(18% - 400px);
+    margin-left: 1px;
+    border: solid;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: grey;
+    border-top-color: grey;
+    height: 100%;
+    width: 45%;
+}
+
+#right-border-3 {
+    border: solid;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-color: grey;
+    border-top-color: grey;
+    height: 100%;
+    width: 100%;
+}
+
+
+#model-3-color-white {
+    position: absolute;
     display: none;
+    margin-left: 400px;
 }
 
-#model-s-color-black {
+#model-3-color-black {
     position: absolute;
     display: none;
-    margin-left: calc(52% - 400px);
+    margin-left: 450px;
 }
 
-#model-s-color-red {
+#model-3-color-red {
     position: absolute;
     display: none;
-    margin-left: calc(35% - 400px);
+    margin-left: 504px;
+    margin-top: 2px;
 }
 
-#autopilot-model-s {
+#model-3-wheel1 {
     position: absolute;
-    margin-top: 200px;
+    display: none;
+    margin-left: 604px;
+}
+
+#model-3-wheel2 {
+    position: absolute;
+    display: none;
+    margin-left: 654px;
+    margin-top: 1px;
+}
+
+#autopilot-model-3 {
+    position: absolute;
+    margin-top: 80px;
     margin-left: calc(70% - 400px);
     font-size: large;
+    width: 40%;
     font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-#autopilot-model-s-colorp {
+#autopilot-model-3-colorp {
     position: absolute;
-    margin-top: 180px;
-    margin-left: calc(30% - 400px);
     font-size: large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
+    margin-top: 100px;
+    margin-left: 240px;
+    margin-bottom: 100px;
 }
 
-
-#buy-model-s {
-    display: none !important;
-    background-color: red;
-}
 
 
 

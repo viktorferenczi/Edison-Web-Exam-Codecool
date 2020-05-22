@@ -2,7 +2,7 @@
 <head>
     <title>Edison</title>
     <link href="css/index.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body onload="deleteAllCookies()">
@@ -48,91 +48,143 @@
 
     <div id="model_s_page">
 
+        <button class="button" id="model-s-homebutton" onclick="showHome()"><span>Back</span></button>
 
-        <img id="model-s-car-pic" src="" />
-        <p id="autopilot-model-s-colorp">Please select the color you want to choose to your model.</p>
-        <p id="autopilot-model-s">Autopilot advanced safety and convenience features are designed to
-        assist you with the most burdensome parts of driving.</p>
-
-        <div id="model-s-car-autopilot-preview">
-
-            <!--<video width="620" height="440" autoplay loop>
-        <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
-    </video>-->
-            <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop/>
-
-           
-
+        <div id="left-border" class="left-border">
+            <div id="model-s-color-white">
+                <img src="/media/Tesla/white_color.jpg" />
+            </div>
+            <div id="model-s-color-black">
+                <img src="/media/Tesla/black_color.jpg" />
+            </div>
+            <div id="model-s-color-red">
+                <img src="/media/Tesla/red_color.jpg" />
+            </div>
+            <div id="model-s-wheel1">
+                <img src="/media/Tesla/Model S/model_s_wheel1.png" />
+            </div>
+            <div id="model-s-wheel2">
+                <img src="/media/Tesla/Model S/model_s_wheel2.png" />
+            </div>
+            <p id="autopilot-model-s-colorp">Please select the color and the wheel you want to choose for your model.</p>
+            <img id="model-s-car-pic" src="" />
         </div>
 
-        <div id="model-s-color-white">
-            <img src="/media/Tesla/white_color.jpg" />
+        <div id="right-border" class="right-border">
+            <p id="autopilot-model-s">
+                Autopilot advanced safety and convenience features are designed to
+                assist you with the most burdensome parts of driving.
+                All new Tesla cars come standard with driver assistance features such as emergency braking,
+                collision warning and blind-spot monitoring. I don't know what to say lol
+            </p>
+            <div id="model-s-car-autopilot-preview">
+                <!--<video width="620" height="440" autoplay loop>
+                    <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+                </video>-->
+                <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
+            </div>
+            <button class="button" id="model-s-paybutton" onclick=""><span>Pay now</span></button>
         </div>
 
-        <div id="model-s-color-black">
-            <img src="/media/Tesla/black_color.jpg" />
-        </div>
-
-        <div id="model-s-color-red">
-            <img src="/media/Tesla/red_color.jpg" />
-        </div>
-
-     
-
-        <div class="buy-model-s" id ="buy-model-s">
-            <!--<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
-            <script>paypal.Buttons().render('body');</script>-->
-        </div>
     </div>
-       
-        
-   
+
 
 
     <div id="model_x_page">
 
-        <div id="model-x-car-preview"></div>
-        <div id="model-x-car-autopilot-preview">
-            <video width="620" height="440" autoplay loop>
-                <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
-            </video>
+        <button class="button" id="model-x-homebutton" onclick="showHome()"><span>Back</span></button>
+
+        <div id="left-border-x" class="left-border">
+            <div id="model-x-color-white">
+                <img src="/media/Tesla/white_color.jpg" />
+            </div>
+            <div id="model-x-color-black">
+                <img src="/media/Tesla/black_color.jpg" />
+            </div>
+            <div id="model-x-color-red">
+                <img src="/media/Tesla/red_color.jpg" />
+            </div>
+            <div id="model-x-wheel1">
+                <img src="/media/Tesla/Model X/model_x_wheel1.png" />
+            </div>
+            <div id="model-x-wheel2">
+                <img src="/media/Tesla/Model X/model_x_wheel2.png" />
+            </div>
+            <p id="autopilot-model-x-colorp">Please select the color and the wheel you want to choose for your model.</p>
+            <img id="model-x-car-pic" src="" />
         </div>
 
-        <div id="model-x-color-white"></div>
-        <div id="model-x-color-black"></div>
-        <div id="model-x-color-red"></div>
+        <div id="right-border-x" class="right-border-x">
+            <p id="autopilot-model-x">
+                Autopilot advanced safety and convenience features are designed to
+                assist you with the most burdensome parts of driving.
+                All new Tesla cars come standard with driver assistance features such as emergency braking,
+                collision warning and blind-spot monitoring. I don't know what to say lol
+            </p>
+            <div id="model-x-car-autopilot-preview">
+                <!--<video width="620" height="440" autoplay loop>
+                    <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+                </video>-->
+                <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
+            </div>
+            <button class="button" id="model-x-paybutton" onclick=""><span>Pay now</span></button>
+        </div>
 
-       
-
-
-        <button id="buy-model-x">Pay now</button>
     </div>
+
 
 
     <div id="model_3_page">
 
-        <div id="model-3-car-preview"></div>
-        <div id="model-3-car-autopilot-preview">
-            <video width="620" height="440" autoplay loop>
-                <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
-            </video>
+        <button class="button" id="model-3-homebutton" onclick="showHome()"><span>Back</span></button>
+
+        <div id="left-border-3" class="left-border">
+            <div id="model-3-color-white">
+                <img src="/media/Tesla/white_color.jpg" />
+            </div>
+            <div id="model-3-color-black">
+                <img src="/media/Tesla/black_color.jpg" />
+            </div>
+            <div id="model-3-color-red">
+                <img src="/media/Tesla/red_color.jpg" />
+            </div>
+            <div id="model-3-wheel1">
+                <img src="/media/Tesla/Model 3/model_3_wheel1.png" />
+            </div>
+            <div id="model-3-wheel2">
+                <img src="/media/Tesla/Model 3/model_3_wheel2.png" />
+            </div>
+            <p id="autopilot-model-3-colorp">Please select the color and the wheel you want to choose for your model.</p>
+            <img id="model-3-car-pic" src="" />
         </div>
 
-        <div id="model-3-color-white"></div>
-        <div id="model-3-color-black"></div>
-        <div id="model-3-color-red"></div>
+        <div id="right-border-3" class="right-border-3">
+            <p id="autopilot-model-3">
+                Autopilot advanced safety and convenience features are designed to
+                assist you with the most burdensome parts of driving.
+                All new Tesla cars come standard with driver assistance features such as emergency braking,
+                collision warning and blind-spot monitoring. I don't know what to say lol
+            </p>
+            <div id="model-3-car-autopilot-preview">
+                <!--<video width="620" height="440" autoplay loop>
+                    <source src="/media/Tesla/autopilot.mp4" type="video/mp4">
+                </video>-->
+                <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
+            </div>
+            <button class="button" id="model-3-paybutton" onclick=""><span>Pay now</span></button>
+        </div>
 
-     
-
-        <button id="buy-model-3">Pay now</button>
     </div>
 
 
-    <button class="model-s" id="model-s" onclick="showModelSView()" style="opacity:0" >S</button>
-    <button class="model-x" id="model-x"  onclick="showModelXView()" style="opacity:0" >X</button>
-    <button class="model-3" id="model-3"  onclick="showModel3View()" style="opacity:0" >3</button>
 
-
+    <button class="model-s" id="model-s" onclick="showModelSView()" style="opacity:0">S</button>
+    <button class="model-x" id="model-x" onclick="showModelXView()" style="opacity:0">X</button>
+    <button class="model-3" id="model-3" onclick="showModel3View()" style="opacity:0">3</button>
+    <div class="buy-model-s" id="buy-model-s">
+        <!--<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+        <script>paypal.Buttons().render('body');</script>-->
+    </div>
     <script src="js/index.js"></script>
 </body>
 </html>
