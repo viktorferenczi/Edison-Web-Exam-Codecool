@@ -1,0 +1,28 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tesla Model Register</title>
+    <link href="css/paymentpage.css" rel="stylesheet" />
+</head>
+<body onload="getShoppingCart()">
+    <h1>Your registered car:</h1>
+    <p>You have successfully registered your unpaid car! Please proceed with your payment.</p>
+    <p id="car-model"></p>
+    <img id="car-model-pic" src=""/>
+    <p id="car-color"></p>
+    <img id="car-model-color-pic" src="" />
+    <p id="car-wheel"></p>
+    <img id="car-wheel-pic" src="" />
+    <br /><br />
+    <a>Click here to delete your unpaid Model</a><br />
+    <a href="index.html">Back</a><br />
+
+
+    <div class="buy-model-paypal" id="buy-model-paypal"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+    <script>paypal.Buttons().render('#buy-model-paypal');</script>
+
+
+    <script src="js/index.js"></script>
+</body>
+</html>

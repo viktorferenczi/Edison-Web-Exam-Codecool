@@ -1,11 +1,11 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Edison</title>
+    <title>Tesla</title>
     <link href="css/index.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body onload="deleteAllCookies()">
+<body onload="getLoggedInUser()">
 
 
     <div class="navbar">
@@ -83,7 +83,7 @@
                 </video>-->
                 <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
             </div>
-            <button class="button" id="model-s-paybutton" onclick=""><span>Pay now</span></button>
+            <a class="button" id="model-s-paybutton" href="payment.html" onclick="addCarToUser()"><span>Register car</span></a>
         </div>
 
     </div>
@@ -127,7 +127,7 @@
                 </video>-->
                 <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
             </div>
-            <button class="button" id="model-x-paybutton" onclick=""><span>Pay now</span></button>
+            <a class="button" id="model-x-paybutton" href="payment.html" onclick="addCarToUser()"><span>Register car</span></a>
         </div>
 
     </div>
@@ -171,7 +171,7 @@
                 </video>-->
                 <embed width="620" height="440" src="media/Tesla/autopilot.mp4" autostart="true" loop />
             </div>
-            <button class="button" id="model-3-paybutton" onclick=""><span>Pay now</span></button>
+            <a href="payment.html" class="button" id="model-3-paybutton" onclick="addCarToUser()" ><span>Register car</span></a>
         </div>
 
     </div>
@@ -181,10 +181,9 @@
     <button class="model-s" id="model-s" onclick="showModelSView()" style="opacity:0">S</button>
     <button class="model-x" id="model-x" onclick="showModelXView()" style="opacity:0">X</button>
     <button class="model-3" id="model-3" onclick="showModel3View()" style="opacity:0">3</button>
-    <div class="buy-model-s" id="buy-model-s">
-        <!--<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
-        <script>paypal.Buttons().render('body');</script>-->
-    </div>
+   
+
+
     <script src="js/index.js"></script>
 </body>
 </html>

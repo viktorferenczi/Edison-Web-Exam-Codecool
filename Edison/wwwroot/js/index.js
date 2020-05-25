@@ -6,9 +6,28 @@ let wheel;
 
 
 /* ----- Deleting all cookies when the page is loading ----- */
-function deleteAllCookies() {
+function getLoggedInUser() {
     var xhr = new XMLHttpRequest();
-    xhr.open('Get', '/Account/Logout');
+    xhr.open('Get', '/Authentication/CheckForCookie');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfully
+                if (xhr.responseText != "") {
+                    document.getElementById("login-button").style.display = "none"
+                    document.getElementById("registration-button").style.display = "none"
+                    document.getElementById("logout-button").style.display = "block"
+                    document.getElementById("home-paragraph").style.display = "block"
+                    userName = xhr.responseText
+                    document.getElementById("home-paragraph").innerText = "Hello $userName, select your model and customize it.".replace('$userName', userName)
+                }
+            } else if (status === 500) {
+                // There has been an error with the request!            
+            }
+        }
+    }
     xhr.send();
 }
 
@@ -110,6 +129,9 @@ function login() {
                     document.getElementById("logout-button").style.display = "block"
                     document.getElementById("home_view").style.display = "block"
                     document.getElementById("home-title").style.display = "block"
+                    document.getElementById("model-3").style.display = "block"
+                    document.getElementById("model-x").style.display = "block"
+                    document.getElementById("model-s").style.display = "block"
                     document.getElementById("home-paragraph").style.display = "block"
                     document.getElementById("home-paragraph").innerText = "Hello $userName, select your model and customize it.".replace('$userName', userName)
 
@@ -341,12 +363,14 @@ function chooseModelSBlack() {
         carColor = "Black"
         carModel = "Model S"
         wheel = "Wheel 1"
+        console.log(userName)
         console.log("Data: " + carColor + " " + carModel + " " + wheel)
     } else if (wheel === "Wheel 2") {
         document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_black_2.png"
         carColor = "Black"
         carModel = "Model S"
         wheel = "Wheel 2"
+        console.log(userName)
         console.log("Data: " + carColor + " " + carModel + " " + wheel)
     }
 }
@@ -826,3 +850,156 @@ function chooseModel3wheel2() {
 /*************************************************************************************************
  * Model 3 view settings ends
  * ***********************************************************************************************/
+
+function addCarToUser() {
+    // New POST request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Post', '/CarModel/AddCarToUser')
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+            } else if (status === 500) {
+                // There has been an error with the request!
+            }
+        }
+    };
+    // Sending login details to controller 
+    var data = new FormData()
+    data.append('username', userName)
+    data.append('carmodel', carModel)
+    data.append('carcolor', carColor)
+    data.append('carwheel', wheel)
+
+    xhr.send(data)
+}
+
+
+/******************************************************************************************************** */
+
+
+
+/*************************************************************************************************
+ * Payment site starts
+ * ***********************************************************************************************/
+
+function getShoppingCart() {
+    // New POST request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Post', '/Payment/GetShoppingCart')
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfully
+                console.log(xhr.responseText)
+
+                let JSONOfCarmodel = JSON.parse(xhr.responseText)
+
+                let carModel = document.getElementById("car-model")
+                let carColor = document.getElementById("car-color")
+                let carWheel = document.getElementById("car-wheel")
+                let carModelPic = document.getElementById("car-model-pic")
+                let carModelColorPic = document.getElementById("car-model-color-pic")
+                let carWheelPic = document.getElementById("car-wheel-pic")
+
+
+                //here comes the if train :(
+                if (JSONOfCarmodel.modelType === "Model S") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_red.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red" ) {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    }
+                } else if (JSONOfCarmodel.modelType === "Model X") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_red.png'
+                        carModelColorPic.src = "url('/media/Tesla/red_color.jpg')"
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    }
+                } else if (JSONOfCarmodel.modelType === "Model 3") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_red.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    }
+                }
+                carModel.innerHTML = JSONOfCarmodel.modelType
+                carColor.innerHTML = JSONOfCarmodel.modelColor
+                carWheel.innerHTML = JSONOfCarmodel.modelWheel
+            } else if (status === 500) {
+                // There has been an error with the request!
+            }
+        }
+    };
+    // Sending login details to controller 
+    var data = new FormData()
+    data.append('username', userName)
+    console.log("elkuldott username: " + userName)
+    xhr.send(data)
+}

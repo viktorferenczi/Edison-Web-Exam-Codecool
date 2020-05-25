@@ -1,4 +1,6 @@
-﻿using Npgsql;
+﻿using Edison.Models;
+using Microsoft.CodeAnalysis;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,9 +104,54 @@ namespace Edison.Domain
                 return true;
             }
             return false;
-
         }
 
 
+        public void AddModelToUser(string username, string carmodel, string carcolor,string carwheel)
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"INSERT INTO carmodel(user_name, car_model, car_color, car_wheel, car_payed) VALUES ('{username}','{carmodel}','{carcolor}','{carwheel}','unpaid')", conn);
+                command.ExecuteNonQuery();          
+                conn.Close();
+            }
+
+        }
+
+        public void MakeModelPayed(string username)
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                var command = new NpgsqlCommand($"UPDATE carmodel SET car_payed = 'payed' WHERE user_name = '{username}'", conn);
+                command.ExecuteNonQuery(); 
+                conn.Close();
+            }
+
+        }
+
+        public CarModel GetModelForUser(string username)
+        {
+            CarModel car = new CarModel();
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM carmodel WHERE user_name ='{username}' AND car_payed ='unpaid'", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var ModelType = Convert.ToString(reader["car_model"]);
+                        var ModelColor = Convert.ToString(reader["car_color"]);
+                        var ModelWheel = Convert.ToString(reader["car_wheel"]);
+                        var IsPayed = Convert.ToString(reader["car_payed"]);
+                        car = new CarModel(ModelType, ModelColor, ModelWheel, IsPayed);
+                    }
+                }
+                conn.Close();
+            }       
+            return car;
+        }
     }
 }
