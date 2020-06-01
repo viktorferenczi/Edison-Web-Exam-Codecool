@@ -119,17 +119,6 @@ namespace Edison.Domain
 
         }
 
-        public void MakeModelPayed(string username)
-        {
-            using (var conn = new NpgsqlConnection(connectingString))
-            {
-                var command = new NpgsqlCommand($"UPDATE carmodel SET car_payed = 'payed' WHERE user_name = '{username}'", conn);
-                command.ExecuteNonQuery(); 
-                conn.Close();
-            }
-
-        }
-
         public CarModel GetModelForUser(string username)
         {
             CarModel car = new CarModel();
@@ -152,6 +141,82 @@ namespace Edison.Domain
                 conn.Close();
             }       
             return car;
+        }
+
+        public void MakeCarPayed()
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"UPDATE carmodel SET car_payed = 'paid' WHERE car_id = (SELECT max(car_id) FROM carmodel); ", conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public void CreateTransaction(string user)
+        {
+            int id = 0;
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM carmodel WHERE car_id = (SELECT max(car_id) FROM carmodel)", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                       id = Convert.ToInt32(reader["car_id"]);
+                    }
+                }
+                conn.Close();
+            }
+
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"INSERT INTO transactions(car_id, user_name, datetime) VALUES ({id},'{user}','{DateTime.Now}')", conn);
+                command.ExecuteNonQuery();
+                Console.WriteLine(DateTime.Now);
+                conn.Close();
+            }
+
+        }
+
+
+        public TransactionModel GetTransactionForOrder()
+        {
+            TransactionModel order = new TransactionModel();
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM transactions WHERE transaction_id = (SELECT max(transaction_id) FROM transactions)", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var transid = Convert.ToInt32(reader["transaction_id"]);
+                        var carid = Convert.ToInt32(reader["car_id"]);
+                        var username = Convert.ToString(reader["user_name"]);
+                        var date = Convert.ToString(reader["datetime"]);
+                        order = new TransactionModel(transid,carid,username,date);
+                    }
+                }
+                conn.Close();
+            }
+            return order;
+        }
+
+        public void DeleteCarAfterOrder()
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"DELETE FROM carmodel WHERE car_id = (SELECT max(car_id) FROM carmodel)", conn);
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+            }
         }
     }
 }

@@ -29,5 +29,30 @@ namespace Edison.Controllers
             CarModel car = _userService.GetModelForUser(user);
             return car;
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        public void MakeCarPayed()
+        {
+            var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            _userService.MakeCarPayed();
+            _userService.CreateTransaction(user);
+
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public TransactionModel GetTransaction()
+        {
+           return _userService.GetTransactionForOrder();
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public void DeleteCarAfterOrder()
+        {
+            _userService.DeleteCarAfterOrder();
+        }
+        
     }
 }

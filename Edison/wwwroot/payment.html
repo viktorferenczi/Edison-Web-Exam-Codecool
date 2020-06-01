@@ -4,24 +4,21 @@
     <link href="css/paymentpage.css" rel="stylesheet" />
 </head>
 <body onload="getShoppingCart()">
-    <h1>Your registered car:</h1>
-    <p>You have successfully registered your unpaid car! Please proceed with your payment.</p>
-    <p id="car-model"></p>
-    <img id="car-model-pic" src=""/>
-    <p id="car-color"></p>
-    <img id="car-model-color-pic" src="" />
-    <p id="car-wheel"></p>
-    <img id="car-wheel-pic" src="" />
-    <br /><br />
-    <a>Click here to delete your unpaid Model</a><br />
-    <a href="index.html">Back</a><br />
-
-
-    <div class="buy-model-paypal" id="buy-model-paypal"></div>
-
-    <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
-    <script>paypal.Buttons().render('#buy-model-paypal');</script>
-
+    <h1 class="registered-car" id="registered-car">Your registered car:</h1>
+    <p class="payment" id="payment">You have successfully registered your car! To order it, please proceed with your payment.</p>
+    <p class="car-model-type" id="car-model-type">Model type:</p>
+    <p class="car-model" id="car-model"></p>
+    <img class="car-model-pic" id="car-model-pic" src="" />
+    <p class="car-color-type" id="car-color-type">Model color:</p>
+    <p class="car-color" id="car-color"></p>
+    <img class="car-model-color-pic" id="car-model-color-pic" src="" />
+    <p class="car-wheel-type" id="car-wheel-type">Model wheel type:</p>
+    <p class="car-wheel" id="car-wheel"></p>
+    <img class="car-wheel-pic" id="car-wheel-pic" src="" />
+   
+    <a onclick="deleteUnpaidModel()" class="delete-model-button" id="delete-model-button">Click here to delete your unpaid Model</a>
+    <a class="back-button" id="back-button" href="index.html">Back</a>
+    <a href="confirmation.html" onclick="carPayed()" class="button" id="buy-model-paypal"><span>Order</span></a>
 
     <script src="js/index.js"></script>
 </body>

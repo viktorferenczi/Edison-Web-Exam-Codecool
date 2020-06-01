@@ -1,5 +1,8 @@
-﻿let userName;
+﻿// User details
+let userName;
 let userPass;
+
+// Car details
 let carModel;
 let carColor;
 let wheel;
@@ -52,7 +55,6 @@ function register() {
         }
     }
 
-
     function reqListener() {
         console.log(this.responseText);
     }
@@ -79,7 +81,6 @@ function register() {
                 failedRegister.style.display = "block"
             }
         }
-
     }
     var data = new FormData();
     data.append('username', userName);
@@ -873,11 +874,8 @@ function addCarToUser() {
     data.append('carmodel', carModel)
     data.append('carcolor', carColor)
     data.append('carwheel', wheel)
-
     xhr.send(data)
 }
-
-
 /******************************************************************************************************** */
 
 
@@ -907,7 +905,6 @@ function getShoppingCart() {
                 let carModelPic = document.getElementById("car-model-pic")
                 let carModelColorPic = document.getElementById("car-model-color-pic")
                 let carWheelPic = document.getElementById("car-wheel-pic")
-
 
                 //here comes the if train :(
                 if (JSONOfCarmodel.modelType === "Model S") {
@@ -1003,3 +1000,129 @@ function getShoppingCart() {
     console.log("elkuldott username: " + userName)
     xhr.send(data)
 }
+
+
+function carPayed() {
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Payment/MakeCarPayed')
+    xhr.send()
+}
+
+function deleteUnpaidModel() {
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Payment/DeleteCarAfterOrder')
+    xhr.send()
+    let button = document.getElementById("delete-model-button")
+    button.innerText = "Model successfully deleted. Click on 'Back' to visit home view again."
+    button.style.textDecoration = "none"
+    button.style.color = "green"
+
+    document.getElementById("buy-model-paypal").style.display = "none"
+    document.getElementById("payment").style.display = "none"
+
+}
+
+/*************************************************************************************************
+ * Payment site ends
+ * ***********************************************************************************************/
+
+
+
+
+
+/*************************************************************************************************
+ * Transaction site starts
+ * ***********************************************************************************************/
+
+function getTransactionDetails() {
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Payment/GetTransaction')
+    xhr.send()
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                let JSONOfTransaction = JSON.parse(xhr.responseText)
+                console.log(xhr.responseText)
+
+                let transactionID = document.getElementById("transaction-id")
+                let customername = document.getElementById("customername")
+                let orderdate = document.getElementById("orderdate")
+
+
+                transactionID.innerText = JSONOfTransaction.transID
+                customername.innerText = JSONOfTransaction.carOwner
+                orderdate.innerText = JSONOfTransaction.orderDate
+
+            } else if (status === 500) {
+                // There has been an error with the request!
+            }
+        }
+    };
+}
+
+function sendEmail() {
+    let transactionID;
+    let customername;
+    let orderdate;
+
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Payment/GetTransaction')
+    xhr.send()
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                let JSONOfTransaction = JSON.parse(xhr.responseText)
+                console.log(xhr.responseText)
+
+                transactionID = JSONOfTransaction.transID
+                customername = JSONOfTransaction.carOwner
+                orderdate = JSONOfTransaction.orderDate
+
+                //get the email from the user
+                var txt;
+                var email = prompt("Please enter your email:", "email");
+                if (email == null || email == "") {
+                    txt = "User cancelled the prompt.";
+                    alert(txt)
+                } 
+                    
+                //send the email
+                Email.send({
+                    Host: "smtp.gmail.com",
+                    Username: "ferencziviktor11@gmail.com",
+                    Password: "518a2c49FD110199Integral",
+                    To: email,
+                    From: "ferencziviktor11@gmail.com",
+                    Subject: "Confirmation - Tesla Model S Order",
+                    //Body: "TransactionID: $transid".replace("$transid", transactionID) +
+                    //      " Customer: $customername".replace("$customername", customername) +
+                    //      " Order date: orderdate".replace("orderdate", orderdate)
+                    Body: "xdd"
+                })
+                    .then(function (message) {
+                        alert("mail sent successfully")
+                    });
+            } else if (status === 500) {
+                // There has been an error with the request!
+            }
+        }
+    };
+}
+
+/*************************************************************************************************
+ * Transaction site ends
+ * ***********************************************************************************************/
+
+

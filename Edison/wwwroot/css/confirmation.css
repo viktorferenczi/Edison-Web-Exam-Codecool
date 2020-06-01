@@ -1,89 +1,76 @@
-﻿#registered-car {
-    margin-top:3em;
-    position:absolute;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-size:32px;
-}
-
-#payment {
-    margin-left: 80em;
+﻿#print-out-pic {
+    width: 30px;
+    height: 30px;
     position: absolute;
-    margin-top: 23em;
-    
+    margin-left: 39em;
+    margin-top: 37em;
 }
 
+#email-pic {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    margin-left: 41.5em;
+    margin-top: 37em;
+}
 
-#car-model-type {
+#collect-model {
+    position: absolute;
+    width:650px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 19px;
+    margin-left:5em;
+    margin-top:28em;
+}
+
+#order-details-h1 {
+    margin-top: 3em;
+    position: absolute;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 32px;
+}
+
+#transaction-id-title {
     margin-top: 7em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
 }
 
-#car-model {
+#transaction-id {
     margin-top: 9em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
 }
 
-#car-color-type {
-    margin-top: -7em;
+
+#customername-title {
+    margin-top: 12em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
 }
 
-#car-color {
-    margin-top: -5em;
+#customername {
+    margin-top: 14em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
 }
 
-#car-wheel-type {
-    margin-top: -1em;
+#orderdate-title {
+    margin-top: 17em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
 }
 
-#car-wheel {
-    margin-top: 1em;
+#orderdate {
+    margin-top: 19em;
     position: absolute;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 22px;
-}
-
-#car-model-pic {
-    margin-left:26em;
-}
-
-#car-model-color-pic {
-    margin-left: -29em;
-}
-
-#delete-model-button {
-    margin-top: 32em;
-    position: absolute;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 22px;
-    margin-left: -41em;
-    text-decoration: underline;
-}
-
-#back-button {
-    margin-top: 33.3em;
-    position: absolute;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 22px;
-    margin-left: -41em;
-}
-
-#buy-model-paypal {
-    position:absolute;
-    margin-left:31em;
-    margin-top:30em;
 }
 
 .button {
@@ -126,3 +113,9 @@
             opacity: 1;
             right: 0;
         }
+
+
+#homebutton {
+    position: absolute;
+    margin-top: 38em;
+}

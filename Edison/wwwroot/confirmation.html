@@ -1,0 +1,29 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Model Payment Confirmation</title>
+    <link href="css/confirmation.css" rel="stylesheet" />
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+</head>
+<body onload="getTransactionDetails()">
+    <h1 class="order-details-h1" id="order-details-h1">Order details:</h1>
+
+    <p class="transaction-id-title" id="transaction-id-title">Transaction ID:</p>
+    <p class="transaction-id" id="transaction-id"></p>
+
+    <p class="customername-title" id="customername-title">Customer:</p>
+    <p class="customername" id="customername"></p>
+
+    <p class="orderdate-title" id="orderdate-title">Order Date:</p>
+    <p class="orderdate" id="orderdate"></p>
+
+    <p class="collect-model" id="collect-model">You can collect your Model in the nearest Tesla center, please bring your transaction details with you in the following format:</p>
+
+    <img onclick="window.print()" class="print-out-pic" id="print-out-pic" src="/media/printer.png" alt="Print out Transaction" />
+    <img onclick="sendEmail()" class="email-pic" id="email-pic" src="/media/email.png" alt="Send email" />
+
+    <a class="button" id="homebutton" href="index.html" ><span>Home</span></a>
+    <script src="js/index.js"></script>
+</body>
+</html>
