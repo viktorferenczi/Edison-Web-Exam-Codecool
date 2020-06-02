@@ -19,6 +19,9 @@ function getLoggedInUser() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 // The request has been completed successfully
                 if (xhr.responseText != "") {
+                    if (xhr.responseText === "Admin") {
+                        document.getElementById("adminlog-button").style.display = "block"
+                    }
                     document.getElementById("login-button").style.display = "none"
                     document.getElementById("registration-button").style.display = "none"
                     document.getElementById("logout-button").style.display = "block"
@@ -77,7 +80,7 @@ function register() {
                 // There has been an error with the request!
                 console.log('failed register')
                 let failedRegister = document.getElementById('failed-register')
-                failedRegister.innerText = "Username is already taken."
+                failedRegister.innerText = "Faileg to register."
                 failedRegister.style.display = "block"
             }
         }
@@ -123,7 +126,7 @@ function login() {
                 var status = xhr.status
                 if (status === 0 || (status >= 200 && status < 400)) {
                     // The request has been completed successfully
-                    console.log(xhr.responseText)                 
+                    console.log("username: " + xhr.responseText)                 
                     document.getElementById("login_table").style.display = "none"
                     document.getElementById("login-button").style.display = "none"
                     document.getElementById("registration-button").style.display = "none"
@@ -137,7 +140,8 @@ function login() {
                     document.getElementById("home-paragraph").innerText = "Hello $userName, select your model and customize it.".replace('$userName', userName)
 
                     if (xhr.responseText == "admin") {
-                       
+                        console.log("user is admin")
+                        document.getElementById("adminlog-button").style.display = "block"
                     }
 
                 } else if (status === 500) {
@@ -170,6 +174,7 @@ function logout() {
     document.getElementById("home_view").style.display = "block"
     document.getElementById("home-title").style.display = "block"
     document.getElementById("home-paragraph").style.display = "block"
+    document.getElementById("adminlog-button").style.display = "none"
     document.getElementById("home-paragraph").innerText = "Please select your model and customize it."
     var xhr = new XMLHttpRequest();
     xhr.open('Get', '/Account/Logout');
@@ -277,8 +282,105 @@ function showHome() {
     document.getElementById("model-3-wheel1").style.display = "none"
     document.getElementById("model-3-wheel2").style.display = "none"
     // disable model 3 view
+
+
+    // disable Admin view
+    let confirmation = document.getElementById("confirmation")
+    confirmation.innerText = ""
+    document.getElementById("admin_table").style.display = "none"
+    document.getElementById("renderList").style.display = "none"
+    // disable Admin view
 }
 /* -----  showHome function ends -----  */
+
+
+/* -----  showAdminLog function starts -----  */
+function showAdminLog() {
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Admin/ShowUserActivities')
+    xhr.send()
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfully
+                document.getElementById("home_view").style.display = "none"
+                document.getElementById("register_table").style.display = "none"
+                document.getElementById("login_table").style.display = "none"
+                document.getElementById("login-button").style.display = "none"
+                document.getElementById("register-button").style.display = "none"
+                document.getElementById("admin_table").style.display = "block"
+                document.getElementById("renderList").style.display = "block"
+                document.getElementById("model-3").style.display = "none"
+                document.getElementById("model-x").style.display = "none"
+                document.getElementById("model-s").style.display = "none"
+
+                console.log(xhr.responseText)
+                let JSONOfActivities = JSON.parse(xhr.responseText);
+
+                let listOfActivities = [];
+                for (var i = 0; i < JSONOfActivities.length; i++) {
+                    let activity = "(" + JSONOfActivities[i].userID + ") " + JSONOfActivities[i].activity
+                    listOfActivities.push(activity)
+                }
+                listOfActivities.reverse();
+                listRendererActivities(listOfActivities);
+            }
+        }
+    };
+}
+
+function listRendererActivities(list) {
+    let ul = document.createElement('ul');
+    ul.setAttribute('id', 'actList');
+    document.getElementById('renderList').appendChild(ul);
+    list.forEach(renderScheduleList);
+
+    function renderScheduleList(element, index, arr) {
+        let li = document.createElement('li');
+        li.setAttribute('id', 'activity-item');
+        ul.appendChild(li);
+
+        li.innerHTML = li.innerHTML + element;
+    }
+}
+
+function deleteUser() {
+    let confirmation = document.getElementById("confirmation")
+    let user = document.getElementById("banned-user").value
+    console.log(user)
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Post', '/Account/DeleteUser')
+    // Sending login details to controller 
+    if (user === userName) {
+        confirmation.innerText = "You can not delete yourself lol"
+    }
+    var data = new FormData()
+    data.append('user', user)
+    xhr.send(data)
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                if (xhr.responseText === "Deleted") {         
+                    confirmation.innerText = "User deleted successfully."
+                } else {
+                    confirmation.innerText = "Wrong username."
+                }
+            } else if (status === 500) {
+                // There has been an error with the request!
+            }
+        }
+    };
+}
+
+/* -----  showAdminLog function ends -----  */
 
 
 

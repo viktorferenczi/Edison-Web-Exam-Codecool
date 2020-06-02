@@ -37,6 +37,7 @@ namespace Edison.Controllers
             var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             _userService.MakeCarPayed();
             _userService.CreateTransaction(user);
+            _userService.CreateUserActivity(user, "Ordered a car " + DateTime.Now);
 
         }
 
@@ -51,7 +52,10 @@ namespace Edison.Controllers
         [Route("[action]")]
         public void DeleteCarAfterOrder()
         {
+          
             _userService.DeleteCarAfterOrder();
+            var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            _userService.CreateUserActivity(user, "Deleted an unpaid car " + DateTime.Now);
         }
         
     }

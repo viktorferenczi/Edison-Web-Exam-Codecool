@@ -218,5 +218,85 @@ namespace Edison.Domain
                 conn.Close();
             }
         }
+
+        public bool DeleteUser(string username)
+        {
+            try
+            {
+                using (var conn = new NpgsqlConnection(connectingString))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand($"DELETE FROM userlog WHERE user_name = '{username}'", conn);
+                    var reader = command.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                using (var conn = new NpgsqlConnection(connectingString))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand($"DELETE FROM transactions WHERE user_name = '{username}'", conn);
+                    var reader = command.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                using (var conn = new NpgsqlConnection(connectingString))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand($"DELETE FROM carmodel WHERE user_name = '{username}'", conn);
+                    var reader = command.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                using (var conn = new NpgsqlConnection(connectingString))
+                {
+                    conn.Open();
+                    var command = new NpgsqlCommand($"DELETE FROM users WHERE user_name = '{username}'", conn);
+                    var reader = command.ExecuteNonQuery();
+                    conn.Close();
+                }
+                return true;
+            }
+            catch (Npgsql.NpgsqlException)
+            {
+                return false;
+            }
+        }
+
+
+        public void CreateUserActivity(string username, string activity)
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"INSERT INTO userlog(user_name,user_activity) VALUES ('{username}','{activity}')", conn);
+                command.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
+        public List<UserActivityModel> GetAllUserActivity()
+        {
+            List<UserActivityModel> activityModels = new List<UserActivityModel>();
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM userlog", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        UserActivityModel userActivity = new UserActivityModel();
+                        var user_id = Convert.ToString(reader["user_name"]);
+                        var user_activity = Convert.ToString(reader["user_activity"]);
+                        userActivity = new UserActivityModel(user_id, user_activity);
+                        activityModels.Add(userActivity);                      
+                    }
+                }
+                conn.Close();
+            }
+            return activityModels;
+        }
     }
 }

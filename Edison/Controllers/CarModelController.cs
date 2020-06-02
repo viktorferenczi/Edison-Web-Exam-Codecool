@@ -22,8 +22,10 @@ namespace Edison.Controllers
         [Route("[action]")]
         public void AddCarToUser([FromForm]string username, [FromForm]string carmodel, [FromForm]string carcolor, [FromForm]string carwheel)
         {
+            
             Console.WriteLine("CarModelController: " + username +" " + carmodel + " " + carcolor + " " + carwheel);
             _userService.AddModelToUser(username, carmodel, carcolor, carwheel);
+            _userService.CreateUserActivity(username, "Registered a car " + DateTime.Now);
         }
 
     }

@@ -29,13 +29,31 @@ namespace Edison.Controllers
         public void Register([FromForm]string username, [FromForm]string password)
         {
             _userService.Register(username, password, "user");
+            _userService.CreateUserActivity(username, "User registered " + DateTime.Now);
            
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public string DeleteUser([FromForm]string user)
+        {
+            if (_userService.DeleteUser(user))
+            {
+                var username = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+                _userService.CreateUserActivity(username, "Admin deleted a customer " + DateTime.Now);
+                return "Deleted";
+            }
+            return "Error";
+           
+
+        }
+        
         [HttpGet]
         [Route("[action]")]
         public async void Logout()
         {
+            var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            _userService.CreateUserActivity(user, "User logged out " + DateTime.Now);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
@@ -88,11 +106,13 @@ namespace Edison.Controllers
 
                 if (_userService.IsAdmin(username))
                 {
+                    _userService.CreateUserActivity(username, "User logged in " + DateTime.Now);
                     // User admin
+                    Console.WriteLine("User is admin");
                     return "admin";
                 }
                 // User registered
-
+                _userService.CreateUserActivity(username, "User logged in " + DateTime.Now);
                 return username;
             }
             else
