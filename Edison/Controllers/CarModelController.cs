@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Edison.Domain;
+using Edison.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Edison.Controllers
@@ -28,5 +30,13 @@ namespace Edison.Controllers
             _userService.CreateUserActivity(username, "Registered a car " + DateTime.Now);
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public List<CarModel> GetUserModels()
+        {
+           var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+           _userService.CreateUserActivity(user, "User listed the models" + DateTime.Now);
+           return  _userService.GetAllUserModels(user);
+        }
     }
 }

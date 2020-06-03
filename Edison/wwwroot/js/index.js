@@ -26,6 +26,7 @@ function getLoggedInUser() {
                     document.getElementById("registration-button").style.display = "none"
                     document.getElementById("logout-button").style.display = "block"
                     document.getElementById("home-paragraph").style.display = "block"
+                    document.getElementById("mymodel-button").style.display = "block"
                     userName = xhr.responseText
                     document.getElementById("home-paragraph").innerText = "Hello $userName, select your model and customize it.".replace('$userName', userName)
                 }
@@ -132,6 +133,7 @@ function login() {
                     document.getElementById("registration-button").style.display = "none"
                     document.getElementById("logout-button").style.display = "block"
                     document.getElementById("home_view").style.display = "block"
+                    document.getElementById("mymodel-button").style.display = "block"
                     document.getElementById("home-title").style.display = "block"
                     document.getElementById("model-3").style.display = "block"
                     document.getElementById("model-x").style.display = "block"
@@ -175,6 +177,7 @@ function logout() {
     document.getElementById("home-title").style.display = "block"
     document.getElementById("home-paragraph").style.display = "block"
     document.getElementById("adminlog-button").style.display = "none"
+    document.getElementById("mymodel-button").style.display = "none"
     document.getElementById("home-paragraph").innerText = "Please select your model and customize it."
     var xhr = new XMLHttpRequest();
     xhr.open('Get', '/Account/Logout');
@@ -232,6 +235,11 @@ function showHome() {
     // disable login view
     document.getElementById("login_table").style.display = "none"
     // disable login view
+
+
+    // disable mymodel view
+    document.getElementById("mymodel_table").style.display = "none"
+    // disable mymodel view
 
     // disable model s view
     document.getElementById("model_s_page").style.display = "none"
@@ -381,6 +389,63 @@ function deleteUser() {
 }
 
 /* -----  showAdminLog function ends -----  */
+
+
+/* -----  Mymodel function starts -----  */
+function showUserModels() {
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/CarModel/GetUserModels')
+    xhr.send()
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfully
+                document.getElementById("home_view").style.display = "none"
+                document.getElementById("register_table").style.display = "none"
+                document.getElementById("login_table").style.display = "none"
+                document.getElementById("login-button").style.display = "none"
+                document.getElementById("register-button").style.display = "none"
+                document.getElementById("model-3").style.display = "none"
+                document.getElementById("model-x").style.display = "none"
+                document.getElementById("model-s").style.display = "none"
+
+                document.getElementById("mymodel_table").style.display = "block"
+                document.getElementById("model-list").style.display = "block"
+
+      
+
+                console.log(xhr.responseText)
+
+
+                let JSONModels = JSON.parse(xhr.responseText);
+               
+                let ulEl = document.getElementById("model-list");
+
+                for (var i = 0; i < JSONModels.length; i++) {
+                    let liEL = document.createElement("li")
+
+                    liEL.setAttribute("id", "modelitem")
+                    liEL.innerText =
+                        "Model ID: " + JSONModels[i].carID +
+                        "   ||   Model Type: " + JSONModels[i].modelType +
+                        "   ||   Model Color: " + JSONModels[i].modelColor +
+                        "   ||   Model Wheel Type: " + JSONModels[i].modelWheel +
+                        "   ||   Order Status: " + JSONModels[i].isPayed
+                    
+                    console.log(JSONModels[i])
+                    ulEl.appendChild(liEL)
+                }
+            }
+        }
+    };
+}
+
+
+
+/* -----  Mymodel function ends -----  */
 
 
 

@@ -298,5 +298,33 @@ namespace Edison.Domain
             }
             return activityModels;
         }
+
+
+        public List<CarModel> GetAllUserModels(string username)
+        {
+            List<CarModel> models = new List<CarModel>();
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM carmodel WHERE user_name = '{username}'", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        CarModel car = new CarModel();
+                        var car_id = Convert.ToInt32(reader["car_id"]);
+                        var car_model = Convert.ToString(reader["car_model"]);
+                        var car_color = Convert.ToString(reader["car_color"]);
+                        var car_wheel = Convert.ToString(reader["car_wheel"]);
+                        var car_payed = Convert.ToString(reader["car_payed"]);
+                        car = new CarModel(car_id, car_model, car_color, car_wheel, car_payed);
+                        models.Add(car);
+                    }
+                }
+                conn.Close();
+            }
+            return models;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Edison.Models
 {
     public class CarModel
     {
+        public int CarID { get; set; }
         public string ModelType { get; set; }
         public string ModelColor { get; set; }
         public string ModelWheel { get; set; }
@@ -20,6 +21,15 @@ namespace Edison.Models
             ModelColor = modelcolor;
             ModelWheel = modelwheel;
             IsPayed = ispayed;
+        }
+
+        public CarModel(int carid,string modeltype, string modelcolor, string modelwheel, string ispayed)
+        {
+            ModelType = modeltype;
+            ModelColor = modelcolor;
+            ModelWheel = modelwheel;
+            IsPayed = ispayed;
+            CarID = carid;
         }
     }
 }
