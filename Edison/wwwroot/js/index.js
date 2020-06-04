@@ -302,7 +302,7 @@ function showHome() {
 /* -----  showHome function ends -----  */
 
 
-/* -----  showAdminLog function starts -----  */
+/* -----  showAdminLog view starts -----  */
 function showAdminLog() {
     var xhr = new XMLHttpRequest()
     xhr.open('Get', '/Admin/ShowUserActivities')
@@ -388,10 +388,10 @@ function deleteUser() {
     };
 }
 
-/* -----  showAdminLog function ends -----  */
+/* -----  showAdminLog view ends -----  */
 
 
-/* -----  Mymodel function starts -----  */
+/* -----  Mymodel view starts -----  */
 function showUserModels() {
     var xhr = new XMLHttpRequest()
     xhr.open('Get', '/CarModel/GetUserModels')
@@ -414,6 +414,7 @@ function showUserModels() {
 
                 document.getElementById("mymodel_table").style.display = "block"
                 document.getElementById("model-list").style.display = "block"
+                document.getElementById("model-update-view").style.display = "none"
                
 
       
@@ -499,7 +500,293 @@ function requestedDelete() {
     };
 }
 
-/* -----  Mymodel function ends -----  */
+
+function requestedUpdate() {
+
+    document.getElementById("model-update-view").style.display = "block"
+
+    let confirmation = document.getElementById("delete-confirm")
+    confirmation.innerText = ""
+    let selectValue = document.getElementById("model-select").value
+
+    let selectValueModel = document.getElementById("update-model-type").value
+    let selectValueColor = document.getElementById("update-model-color").value
+    let selectValueWheel = document.getElementById("update-model-wheel").value
+
+    let carModelPic = document.getElementById("update-car-pic")
+    let carModelColorPic = document.getElementById("update-color-pic")
+    let carWheelPic = document.getElementById("update-wheel-pic")
+    // New POST request to controller
+    var xhr = new XMLHttpRequest()
+    console.log(selectValue)
+    xhr.open('Post', '/CarModel/GetCarForUser')
+    // Sending login details to controller 
+    var data = new FormData()
+    data.append('car_id', selectValue)
+    xhr.send(data)
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                console.log(xhr.responseText)
+
+                let JSONOfCarmodel = JSON.parse(xhr.responseText);
+
+                selectElement('update-model-type', JSONOfCarmodel.modelType)
+                selectElement('update-model-color', JSONOfCarmodel.modelColor)
+                selectElement('update-model-wheel', JSONOfCarmodel.modelWheel)
+
+                function selectElement(id, valueToSelect) {
+                    let element = document.getElementById(id);
+                    element.value = valueToSelect;
+                }
+
+           
+
+                if (JSONOfCarmodel.modelType === "Model S") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_red.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model S/model_s_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model S/model_s_wheel2.png'
+                    }
+                } else if (JSONOfCarmodel.modelType === "Model X") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_red.png'
+                        carModelColorPic.src = "url('/media/Tesla/red_color.jpg')"
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model X/model_x_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model X/model_x_wheel2.png'
+                    }
+                } else if (JSONOfCarmodel.modelType === "Model 3") {
+                    if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_white.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_black.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_red.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_white_2.png'
+                        carModelColorPic.src = '/media/Tesla/white_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Black") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_black_2.png'
+                        carModelColorPic.src = '/media/Tesla/black_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "Red") {
+                        carModelPic.src = '/media/Tesla/Model 3/model_3_red_2.png'
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
+                        carWheelPic.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+                    }
+                }
+            } else if (status === 500) {
+                // There has been an error with the request!
+                confirmation.innerText = "Something went wrong, please try again."
+                confirmation.style.color = "red"
+            }
+        }
+    };
+}
+
+function confirmUpdate() {
+    let confirmation = document.getElementById("delete-confirm")
+
+    let selectValue = document.getElementById("model-select").value
+
+    let selectValueModel = document.getElementById("update-model-type").value
+    let selectValueColor = document.getElementById("update-model-color").value
+    let selectValueWheel = document.getElementById("update-model-wheel").value
+
+    // New POST request to controller
+    var xhr = new XMLHttpRequest()
+    console.log(selectValue)
+    xhr.open('Post', '/CarModel/UpdateCarForUser')
+    // Sending login details to controller 
+    var data = new FormData()
+    data.append('car_id', selectValue)
+    data.append('car_model', selectValueModel)
+    data.append('car_color', selectValueColor)
+    data.append('car_wheel', selectValueWheel)
+    xhr.send(data)
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                confirmation.innerText = "Successfully updated your car, please visit us in the nearest Tesla center with your vehicle and paperwork."
+                confirmation.style.color = "green"
+
+
+                //refreshing select after delete
+                document.getElementById("model-select").options.length = 0;
+
+                //refreshing ul after delete
+                let ulEl = document.getElementById("model-list");
+                ulEl.innerHTML = '';
+
+                //regenerate data without refreshing the page
+                showUserModels()
+            } else if (status === 500) {
+                // There has been an error with the request!
+                confirmation.innerText = "Something went wrong, please try again."
+                confirmation.style.color = "red"
+            }
+        }
+    };
+
+}
+
+let selectValueModel = document.getElementById("update-model-type")
+let selectValueColor = document.getElementById("update-model-color")
+let selectValueWheel = document.getElementById("update-model-wheel")
+
+function changeSrc() {
+
+    let selectValueModelValue = document.getElementById("update-model-type").value
+    let selectValueColorValue = document.getElementById("update-model-color").value
+    let selectValueWheelValue = document.getElementById("update-model-wheel").value
+
+    let model = document.getElementById("update-car-pic")
+    let color = document.getElementById("update-color-pic")
+    let wheel = document.getElementById("update-wheel-pic")
+
+    //here comes the if train :(
+    if (selectValueModelValue === "Model S") {
+        if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model S/model_s_white.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model S/model_s_black.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model S/model_s_red.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model S/model_s_white_2.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model S/model_s_black_2.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model S/model_s_red_2.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model S/model_s_wheel2.png'
+        }
+    } else if (selectValueModelValue === "Model X") {
+        if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model X/model_x_white.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model X/model_x_black.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model X/model_x_red.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model X/model_x_white_2.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model X/model_x_black_2.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model X/model_x_red_2.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model X/model_x_wheel2.png'
+        }
+    } else if (selectValueModelValue === "Model 3") {
+        if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model 3/model_3_white.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model 3/model_3_black.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 1" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model 3/model_3_red.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel1.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "White") {
+            model.src = '/media/Tesla/Model 3/model_3_white_2.png'
+            color.src = '/media/Tesla/white_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Black") {
+            model.src = '/media/Tesla/Model 3/model_3_black_2.png'
+            color.src = '/media/Tesla/black_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+        } else if (selectValueWheelValue === "Wheel 2" && selectValueColorValue === "Red") {
+            model.src = '/media/Tesla/Model 3/model_3_red_2.png'
+            color.src = '/media/Tesla/red_color.jpg'
+            wheel.src = '/media/Tesla/Model 3/model_3_wheel2.png'
+        }
+    }
+}
+
+selectValueModel.addEventListener("change", changeSrc)
+selectValueColor.addEventListener("change", changeSrc)
+selectValueWheel.addEventListener("change", changeSrc)
+
+
+
+/* -----  Mymodel view ends -----  */
 
 
 

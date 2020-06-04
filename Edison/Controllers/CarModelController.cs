@@ -65,6 +65,30 @@ namespace Edison.Controllers
             throw new Exception("asd");
         }
 
-       
+
+        [HttpPost]
+        [Route("[action]")]
+        public void UpdateCarForUser([FromForm]string car_id, [FromForm]string car_model, [FromForm]string car_color, [FromForm]string car_wheel)
+        {
+            var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+
+            string[] input = car_id.Split(':');
+            int carID = Convert.ToInt32(input[1]);
+
+            _userService.UpdateCar(carID, car_model, car_color, car_wheel);
+        }
+
+
+        [HttpPost]
+        [Route("[action]")]
+        public CarModel GetCarForUser([FromForm]string car_id)
+        {
+            string[] input = car_id.Split(':');
+            int carID = Convert.ToInt32(input[1]);
+
+            return _userService.GetModelForUser(carID);
+        }
+
+
     }
 }

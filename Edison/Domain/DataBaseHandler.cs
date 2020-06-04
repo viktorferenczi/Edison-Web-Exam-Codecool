@@ -381,5 +381,40 @@ namespace Edison.Domain
         }
 
 
+        public void UpdateCar(int car_id, string model, string color, string wheel)
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"UPDATE carmodel SET car_model = '{model}', car_color = '{color}', car_wheel = '{wheel}' WHERE car_id = {car_id}", conn);
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public CarModel GetModelForUser(int car_id)
+        {
+            CarModel car = new CarModel();
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT * FROM carmodel WHERE car_id = {car_id}", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var ModelType = Convert.ToString(reader["car_model"]);
+                        var ModelColor = Convert.ToString(reader["car_color"]);
+                        var ModelWheel = Convert.ToString(reader["car_wheel"]);
+                        var IsPayed = Convert.ToString(reader["car_payed"]);
+                        car = new CarModel(ModelType, ModelColor, ModelWheel, IsPayed);
+                    }
+                }
+                conn.Close();
+            }
+            return car;
+        }
+
     }
 }

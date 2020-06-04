@@ -771,9 +771,30 @@ ul#model-list {
 
 
 #model-ud {
-    margin-left: 70em;
+    margin-left: 60em;
     width: 400px;
     height: 400px;
+    position:absolute;
+}
+
+#model-update-view {
+    margin-left: 67em;
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    margin-top:8em;
+}
+
+#update-color-pic {
+    position: absolute;
+    margin-left: 18em;
+    margin-top: -4.1em;
+}
+
+#update-wheel-pic {
+    position: absolute;
+    margin-left: 22em;
+    margin-top:-4em;
 }
 
 

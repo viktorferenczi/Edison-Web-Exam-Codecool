@@ -31,14 +31,40 @@
     <div id="mymodel_table">
         <p id="user-models">Your Models:</p>
         <ul id="model-list"></ul>
+
         <button class="button" id="usermodels-homebutton" onclick="showHome()"><span>Back</span></button>
+
         <div id="model-ud">
             <p>Please select your model</p>
+
             <select id="model-select">
             </select>
-            <button id="model-update">Update</button>
+
+            <button onclick="requestedUpdate()" id="model-update">Update</button>
             <button onclick="requestedDelete()" id="model-delete">Delete</button>
+
             <p id="delete-confirm"></p>
+        </div>
+
+        <div id="model-update-view">
+            <img id="update-car-pic" src="/media/Tesla/Model S/model_s_black.png" alt="Model" />
+            <img id="update-wheel-pic" src="/media/Tesla/Model S/model_s_wheel1.png" alt="Wheel" />
+            <img id="update-color-pic" src="/media/Tesla/black_color.jpg" alt="Color" />
+            <select id="update-model-type">
+                <option>Model S</option>
+                <option>Model X</option>
+                <option>Model 3</option>
+            </select>
+            <select id="update-model-color">
+                <option>Black</option>
+                <option>Red</option>
+                <option>White</option>
+            </select>
+            <select id="update-model-wheel">
+                <option>Wheel 1</option>
+                <option>Wheel 2</option>
+            </select>
+            <button onclick="confirmUpdate()" id="confirm-update">Update now</button>
         </div>
      
     </div>
