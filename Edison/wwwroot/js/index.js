@@ -236,9 +236,9 @@ function showHome() {
     document.getElementById("login_table").style.display = "none"
     // disable login view
 
-
     // disable mymodel view
     document.getElementById("mymodel_table").style.display = "none"
+    document.getElementById("delete-confirm").innerText = ""
     // disable mymodel view
 
     // disable model s view
@@ -414,6 +414,7 @@ function showUserModels() {
 
                 document.getElementById("mymodel_table").style.display = "block"
                 document.getElementById("model-list").style.display = "block"
+               
 
       
 
@@ -423,20 +424,30 @@ function showUserModels() {
                 let JSONModels = JSON.parse(xhr.responseText);
                
                 let ulEl = document.getElementById("model-list");
+                let select = document.getElementById("model-select");
+
+                //refreshing select
+                select.options.length = 0;
+                //refreshing ul
+                ulEl.innerHTML = '';
 
                 for (var i = 0; i < JSONModels.length; i++) {
                     let liEL = document.createElement("li")
+                    let option = document.createElement("option")
 
                     liEL.setAttribute("id", "modelitem")
+                    option.setAttribute("id", "modeloption")
+
+                    option.innerText = "Model ID:" + JSONModels[i].carID
+
                     liEL.innerText =
                         "Model ID: " + JSONModels[i].carID +
                         "   ||   Model Type: " + JSONModels[i].modelType +
                         "   ||   Model Color: " + JSONModels[i].modelColor +
                         "   ||   Model Wheel Type: " + JSONModels[i].modelWheel +
                         "   ||   Order Status: " + JSONModels[i].isPayed
-                    
-                    console.log(JSONModels[i])
                     ulEl.appendChild(liEL)
+                    select.appendChild(option)
                 }
             }
         }
@@ -444,6 +455,49 @@ function showUserModels() {
 }
 
 
+function requestedDelete() {
+    let confirmation = document.getElementById("delete-confirm")
+    let selectValue = document.getElementById("model-select").value
+
+    // New POST request to controller
+    var xhr = new XMLHttpRequest()
+    console.log(selectValue)
+    xhr.open('Post', '/CarModel/DeleteCarForUser')
+    // Sending login details to controller 
+    var data = new FormData()
+    data.append('car_id', selectValue)
+    xhr.send(data)
+
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                if (xhr.responseText === "paid") {
+                    confirmation.innerText = "Successfully deleted a paid car, please visit us in the nearest Tesla center with your vehicle and paperwork."
+                    confirmation.style.color = "green"
+                } else if (xhr.responseText === "unpaid") {
+                    confirmation.innerText = "Successfully deleted an unpaid car."
+                    confirmation.style.color = "green"
+                }
+
+                //refreshing select after delete
+                document.getElementById("model-select").options.length = 0;
+
+                //refreshing ul after delete
+                let ulEl = document.getElementById("model-list");
+                ulEl.innerHTML = '';
+
+                //regenerate data without refreshing the page
+                showUserModels()
+            } else if (status === 500) {
+                // There has been an error with the request!
+                confirmation.innerText = "Something went wrong, please try again."
+            }
+        }
+    };
+}
 
 /* -----  Mymodel function ends -----  */
 

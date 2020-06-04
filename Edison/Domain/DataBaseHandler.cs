@@ -326,5 +326,60 @@ namespace Edison.Domain
             }
             return models;
         }
+
+
+        public string GetPaymentSatusForCar(int car_id)
+        {
+            var paid = "";
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand($"SELECT car_payed FROM carmodel WHERE car_id = {car_id}", conn))
+                {
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        paid = Convert.ToString(reader["car_payed"]);
+                    }
+                }
+                conn.Close();
+            }
+            return paid;
+        }
+
+        public void DeletePaidCarForUser(int car_id)
+        {
+
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"DELETE FROM transactions WHERE car_id = '{car_id}'", conn);
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+            }
+
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"DELETE FROM carmodel WHERE car_id = '{car_id}'", conn);
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
+        public void DeleteUnpaidCarForUser(int car_id)
+        {
+            using (var conn = new NpgsqlConnection(connectingString))
+            {
+                conn.Open();
+                var command = new NpgsqlCommand($"DELETE FROM carmodel WHERE car_id = '{car_id}'", conn);
+                var reader = command.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
     }
 }

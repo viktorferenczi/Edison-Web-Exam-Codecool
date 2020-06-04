@@ -38,5 +38,33 @@ namespace Edison.Controllers
            _userService.CreateUserActivity(user, "User listed the models" + DateTime.Now);
            return  _userService.GetAllUserModels(user);
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public string DeleteCarForUser([FromForm]string car_id)
+        {
+            var user = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+
+            string[] input = car_id.Split(':');
+            int carID = Convert.ToInt32(input[1]);
+
+            var payment_status = _userService.GetPaymentSatusForCar(carID);
+
+            if (payment_status == "unpaid")
+            {
+                _userService.DeleteUnpaidCarForUser(carID);
+                _userService.CreateUserActivity(user, "User deleting unpaid car " + DateTime.Now);
+                return "unpaid";
+            }
+            else if (payment_status == "paid")
+            {
+                _userService.DeletePaidCarForUser(carID);
+                _userService.CreateUserActivity(user, "User deleting a paid car " + DateTime.Now);
+                return "paid";
+            }
+            throw new Exception("asd");
+        }
+
+       
     }
 }
