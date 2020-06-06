@@ -798,67 +798,87 @@ selectValueWheel.addEventListener("change", changeSrc)
 
 /* -----  showModelSView function starts, model S on page -----  */
 function showModelSView() {
-    // set the default values 
-    carColor = "White"
-    carModel = "Model S"
-    wheel = "Wheel 1"
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Authentication/CheckForAuth')
+    xhr.send()
 
-    //disable  home view
-    document.getElementById("home_view").style.display = "none"
-    //disable home view
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+         
 
-    //disable car buttons from home view
-    document.getElementById("model-3").style.display = "none"
-    document.getElementById("model-x").style.display = "none"
-    document.getElementById("model-s").style.display = "none"
-    //disable car buttons from home view
+                // set the default values 
+                carColor = "White"
+                carModel = "Model S"
+                wheel = "Wheel 1"
 
+                //disable  home view
+                document.getElementById("home_view").style.display = "none"
+                //disable home view
 
-    // disable register view
-    document.getElementById("register_table").style.display = "none"
-    // disable register view
-
-    // disable login view
-    document.getElementById("login_table").style.display = "none"
-    // disable login view
-
-
-    // disable model x view
-    document.getElementById("model_x_page").style.display = "none"
-    document.getElementById("model-x-homebutton").style.display = "none"
-    document.getElementById("left-border-x").style.display = "none"
-    document.getElementById("model-x-color-white").style.display = "none"
-    document.getElementById("model-x-color-black").style.display = "none"
-    document.getElementById("model-x-color-red").style.display = "none"
-    document.getElementById("autopilot-model-x-colorp").style.display = "none"
-    document.getElementById("model-x-car-pic").style.display = "none"
-    document.getElementById("model-x-car-pic").src = "/media/Tesla/Model S/model_x_white.png";
-    document.getElementById("right-border-x").style.display = "none"
-    document.getElementById("autopilot-model-x").style.display = "none"
-    document.getElementById("model-x-car-autopilot-preview").style.display = "none"
-    document.getElementById("model-x-wheel1").style.display = "none"
-    document.getElementById("model-x-wheel2").style.display = "none"
-    // disable model x view
+                //disable car buttons from home view
+                document.getElementById("model-3").style.display = "none"
+                document.getElementById("model-x").style.display = "none"
+                document.getElementById("model-s").style.display = "none"
+                //disable car buttons from home view
 
 
-    /*******************************************************/
+                // disable register view
+                document.getElementById("register_table").style.display = "none"
+                // disable register view
 
-    // enable model s view
-    document.getElementById("model_s_page").style.display = "block"
-    document.getElementById("model-s-homebutton").style.display = "block"
-    document.getElementById("left-border").style.display = "block"
-    document.getElementById("model-s-color-white").style.display = "block"
-    document.getElementById("model-s-color-black").style.display = "block"
-    document.getElementById("model-s-color-red").style.display = "block"
-    document.getElementById("autopilot-model-s-colorp").style.display = "block"
-    document.getElementById("model-s-car-pic").style.display = "block"
-    document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
-    document.getElementById("right-border").style.display = "block"
-    document.getElementById("autopilot-model-s").style.display = "block"
-    document.getElementById("model-s-car-autopilot-preview").style.display = "block"
-    document.getElementById("model-s-wheel1").style.display = "block"
-    document.getElementById("model-s-wheel2").style.display = "block"
-    // enable model s view
+                // disable login view
+                document.getElementById("login_table").style.display = "none"
+                // disable login view
+
+
+                // disable model x view
+                document.getElementById("model_x_page").style.display = "none"
+                document.getElementById("model-x-homebutton").style.display = "none"
+                document.getElementById("left-border-x").style.display = "none"
+                document.getElementById("model-x-color-white").style.display = "none"
+                document.getElementById("model-x-color-black").style.display = "none"
+                document.getElementById("model-x-color-red").style.display = "none"
+                document.getElementById("autopilot-model-x-colorp").style.display = "none"
+                document.getElementById("model-x-car-pic").style.display = "none"
+                document.getElementById("model-x-car-pic").src = "/media/Tesla/Model S/model_x_white.png";
+                document.getElementById("right-border-x").style.display = "none"
+                document.getElementById("autopilot-model-x").style.display = "none"
+                document.getElementById("model-x-car-autopilot-preview").style.display = "none"
+                document.getElementById("model-x-wheel1").style.display = "none"
+                document.getElementById("model-x-wheel2").style.display = "none"
+                // disable model x view
+
+
+                /*******************************************************/
+
+                // enable model s view
+                document.getElementById("model_s_page").style.display = "block"
+                document.getElementById("model-s-homebutton").style.display = "block"
+                document.getElementById("left-border").style.display = "block"
+                document.getElementById("model-s-color-white").style.display = "block"
+                document.getElementById("model-s-color-black").style.display = "block"
+                document.getElementById("model-s-color-red").style.display = "block"
+                document.getElementById("autopilot-model-s-colorp").style.display = "block"
+                document.getElementById("model-s-car-pic").style.display = "block"
+                document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
+                document.getElementById("right-border").style.display = "block"
+                document.getElementById("autopilot-model-s").style.display = "block"
+                document.getElementById("model-s-car-autopilot-preview").style.display = "block"
+                document.getElementById("model-s-wheel1").style.display = "block"
+                document.getElementById("model-s-wheel2").style.display = "block"
+                // enable model s view
+
+            } else if (status === 405) {
+                // There has been an error with the request!
+                showLogin()
+            }
+        }
+    };
 }
 /* -----  showModelSView function ends -----  */
 
@@ -984,67 +1004,85 @@ function chooseModelSwheel2() {
 
 /* -----  showModelXView function starts, model X on page -----  */
 function showModelXView() {
-    // set the default values 
-    carColor = "White"
-    carModel = "Model X"
-    wheel = "Wheel 1"
 
-    //disable  home view
-    document.getElementById("home_view").style.display = "none"
-    //disable home view
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Authentication/CheckForAuth')
+    xhr.send()
 
-    //disable car buttons from home view
-    document.getElementById("model-3").style.display = "none"
-    document.getElementById("model-x").style.display = "none"
-    document.getElementById("model-s").style.display = "none"
-    //disable car buttons from home view
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                // set the default values 
+                carColor = "White"
+                carModel = "Model X"
+                wheel = "Wheel 1"
 
+                //disable  home view
+                document.getElementById("home_view").style.display = "none"
+                //disable home view
 
-    // disable register view
-    document.getElementById("register_table").style.display = "none"
-    // disable register view
-
-    // disable login view
-    document.getElementById("login_table").style.display = "none"
-    // disable login view
-
-
-    // disable model s view
-    document.getElementById("model_s_page").style.display = "none"
-    document.getElementById("model-s-homebutton").style.display = "none"
-    document.getElementById("left-border").style.display = "none"
-    document.getElementById("model-s-color-white").style.display = "none"
-    document.getElementById("model-s-color-black").style.display = "none"
-    document.getElementById("model-s-color-red").style.display = "none"
-    document.getElementById("autopilot-model-s-colorp").style.display = "none"
-    document.getElementById("model-s-car-pic").style.display = "none"
-    document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
-    document.getElementById("right-border").style.display = "none"
-    document.getElementById("autopilot-model-s").style.display = "none"
-    document.getElementById("model-s-car-autopilot-preview").style.display = "none"
-    document.getElementById("model-s-wheel1").style.display = "none"
-    document.getElementById("model-s-wheel2").style.display = "none"
-    // disable model s view
+                //disable car buttons from home view
+                document.getElementById("model-3").style.display = "none"
+                document.getElementById("model-x").style.display = "none"
+                document.getElementById("model-s").style.display = "none"
+                //disable car buttons from home view
 
 
-    /*******************************************************/
+                // disable register view
+                document.getElementById("register_table").style.display = "none"
+                // disable register view
 
-    // enable model x view
-    document.getElementById("model_x_page").style.display = "block"
-    document.getElementById("model-x-homebutton").style.display = "block"
-    document.getElementById("left-border-x").style.display = "block"
-    document.getElementById("model-x-color-white").style.display = "block"
-    document.getElementById("model-x-color-black").style.display = "block"
-    document.getElementById("model-x-color-red").style.display = "block"
-    document.getElementById("autopilot-model-x-colorp").style.display = "block"
-    document.getElementById("model-x-car-pic").style.display = "block"
-    document.getElementById("model-x-car-pic").src = "/media/Tesla/Model X/model_x_white.png";
-    document.getElementById("right-border-x").style.display = "block"
-    document.getElementById("autopilot-model-x").style.display = "block"
-    document.getElementById("model-x-car-autopilot-preview").style.display = "block"
-    document.getElementById("model-x-wheel1").style.display = "block"
-    document.getElementById("model-x-wheel2").style.display = "block"
-    // enable model x view
+                // disable login view
+                document.getElementById("login_table").style.display = "none"
+                // disable login view
+
+
+                // disable model s view
+                document.getElementById("model_s_page").style.display = "none"
+                document.getElementById("model-s-homebutton").style.display = "none"
+                document.getElementById("left-border").style.display = "none"
+                document.getElementById("model-s-color-white").style.display = "none"
+                document.getElementById("model-s-color-black").style.display = "none"
+                document.getElementById("model-s-color-red").style.display = "none"
+                document.getElementById("autopilot-model-s-colorp").style.display = "none"
+                document.getElementById("model-s-car-pic").style.display = "none"
+                document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
+                document.getElementById("right-border").style.display = "none"
+                document.getElementById("autopilot-model-s").style.display = "none"
+                document.getElementById("model-s-car-autopilot-preview").style.display = "none"
+                document.getElementById("model-s-wheel1").style.display = "none"
+                document.getElementById("model-s-wheel2").style.display = "none"
+                // disable model s view
+
+
+                /*******************************************************/
+
+                // enable model x view
+                document.getElementById("model_x_page").style.display = "block"
+                document.getElementById("model-x-homebutton").style.display = "block"
+                document.getElementById("left-border-x").style.display = "block"
+                document.getElementById("model-x-color-white").style.display = "block"
+                document.getElementById("model-x-color-black").style.display = "block"
+                document.getElementById("model-x-color-red").style.display = "block"
+                document.getElementById("autopilot-model-x-colorp").style.display = "block"
+                document.getElementById("model-x-car-pic").style.display = "block"
+                document.getElementById("model-x-car-pic").src = "/media/Tesla/Model X/model_x_white.png";
+                document.getElementById("right-border-x").style.display = "block"
+                document.getElementById("autopilot-model-x").style.display = "block"
+                document.getElementById("model-x-car-autopilot-preview").style.display = "block"
+                document.getElementById("model-x-wheel1").style.display = "block"
+                document.getElementById("model-x-wheel2").style.display = "block"
+                // enable model x view
+            } else if (status === 405) {
+                // There has been an error with the request!
+                showLogin()
+            }
+        }
+    };
 }
 /* -----  showModelXView function ends -----  */
 
@@ -1169,85 +1207,103 @@ function chooseModelXwheel2() {
 
 /* -----  showModel3View function starts, model 3 on page -----  */
 function showModel3View() {
-    // set the default values 
-    carColor = "White"
-    carModel = "Model 3"
-    wheel = "Wheel 1"
 
-    //disable  home view
-    document.getElementById("home_view").style.display = "none"
-    //disable home view
+    // New GET request to controller
+    var xhr = new XMLHttpRequest()
+    xhr.open('Get', '/Authentication/CheckForAuth')
+    xhr.send()
 
-    //disable car buttons from home view
-    document.getElementById("model-3").style.display = "none"
-    document.getElementById("model-x").style.display = "none"
-    document.getElementById("model-s").style.display = "none"
-    //disable car buttons from home view
+    xhr.onreadystatechange = function () {
+        // In local files, status is 0 upon success in Mozilla Firefox
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // The request has been completed successfull!
+                // set the default values 
+                carColor = "White"
+                carModel = "Model 3"
+                wheel = "Wheel 1"
 
+                //disable  home view
+                document.getElementById("home_view").style.display = "none"
+                //disable home view
 
-    // disable register view
-    document.getElementById("register_table").style.display = "none"
-    // disable register view
-
-    // disable login view
-    document.getElementById("login_table").style.display = "none"
-    // disable login view
-
-
-    // disable model s view
-    document.getElementById("model_s_page").style.display = "none"
-    document.getElementById("model-s-homebutton").style.display = "none"
-    document.getElementById("left-border").style.display = "none"
-    document.getElementById("model-s-color-white").style.display = "none"
-    document.getElementById("model-s-color-black").style.display = "none"
-    document.getElementById("model-s-color-red").style.display = "none"
-    document.getElementById("autopilot-model-s-colorp").style.display = "none"
-    document.getElementById("model-s-car-pic").style.display = "none"
-    document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
-    document.getElementById("right-border").style.display = "none"
-    document.getElementById("autopilot-model-s").style.display = "none"
-    document.getElementById("model-s-car-autopilot-preview").style.display = "none"
-    document.getElementById("model-s-wheel1").style.display = "none"
-    document.getElementById("model-s-wheel2").style.display = "none"
-    // disable model s view
+                //disable car buttons from home view
+                document.getElementById("model-3").style.display = "none"
+                document.getElementById("model-x").style.display = "none"
+                document.getElementById("model-s").style.display = "none"
+                //disable car buttons from home view
 
 
-    // disable model x view
-    document.getElementById("model_x_page").style.display = "none"
-    document.getElementById("model-x-homebutton").style.display = "none"
-    document.getElementById("left-border-x").style.display = "none"
-    document.getElementById("model-x-color-white").style.display = "none"
-    document.getElementById("model-x-color-black").style.display = "none"
-    document.getElementById("model-x-color-red").style.display = "none"
-    document.getElementById("autopilot-model-x-colorp").style.display = "none"
-    document.getElementById("model-x-car-pic").style.display = "none"
-    document.getElementById("model-x-car-pic").src = "/media/Tesla/Model X/model_x_white.png";
-    document.getElementById("right-border-x").style.display = "none"
-    document.getElementById("autopilot-model-x").style.display = "none"
-    document.getElementById("model-x-car-autopilot-preview").style.display = "none"
-    document.getElementById("model-x-wheel1").style.display = "none"
-    document.getElementById("model-x-wheel2").style.display = "none"
-    // disable model x view
+                // disable register view
+                document.getElementById("register_table").style.display = "none"
+                // disable register view
+
+                // disable login view
+                document.getElementById("login_table").style.display = "none"
+                // disable login view
 
 
-    /*******************************************************/
+                // disable model s view
+                document.getElementById("model_s_page").style.display = "none"
+                document.getElementById("model-s-homebutton").style.display = "none"
+                document.getElementById("left-border").style.display = "none"
+                document.getElementById("model-s-color-white").style.display = "none"
+                document.getElementById("model-s-color-black").style.display = "none"
+                document.getElementById("model-s-color-red").style.display = "none"
+                document.getElementById("autopilot-model-s-colorp").style.display = "none"
+                document.getElementById("model-s-car-pic").style.display = "none"
+                document.getElementById("model-s-car-pic").src = "/media/Tesla/Model S/model_s_white.png";
+                document.getElementById("right-border").style.display = "none"
+                document.getElementById("autopilot-model-s").style.display = "none"
+                document.getElementById("model-s-car-autopilot-preview").style.display = "none"
+                document.getElementById("model-s-wheel1").style.display = "none"
+                document.getElementById("model-s-wheel2").style.display = "none"
+                // disable model s view
 
-    // enable model 3 view
-    document.getElementById("model_3_page").style.display = "block"
-    document.getElementById("model-3-homebutton").style.display = "block"
-    document.getElementById("left-border-3").style.display = "block"
-    document.getElementById("model-3-color-white").style.display = "block"
-    document.getElementById("model-3-color-black").style.display = "block"
-    document.getElementById("model-3-color-red").style.display = "block"
-    document.getElementById("autopilot-model-3-colorp").style.display = "block"
-    document.getElementById("model-3-car-pic").style.display = "block"
-    document.getElementById("model-3-car-pic").src = "/media/Tesla/Model 3/model_3_white.png";
-    document.getElementById("right-border-3").style.display = "block"
-    document.getElementById("autopilot-model-3").style.display = "block"
-    document.getElementById("model-3-car-autopilot-preview").style.display = "block"
-    document.getElementById("model-3-wheel1").style.display = "block"
-    document.getElementById("model-3-wheel2").style.display = "block"
-    // enable model 3 view
+
+                // disable model x view
+                document.getElementById("model_x_page").style.display = "none"
+                document.getElementById("model-x-homebutton").style.display = "none"
+                document.getElementById("left-border-x").style.display = "none"
+                document.getElementById("model-x-color-white").style.display = "none"
+                document.getElementById("model-x-color-black").style.display = "none"
+                document.getElementById("model-x-color-red").style.display = "none"
+                document.getElementById("autopilot-model-x-colorp").style.display = "none"
+                document.getElementById("model-x-car-pic").style.display = "none"
+                document.getElementById("model-x-car-pic").src = "/media/Tesla/Model X/model_x_white.png";
+                document.getElementById("right-border-x").style.display = "none"
+                document.getElementById("autopilot-model-x").style.display = "none"
+                document.getElementById("model-x-car-autopilot-preview").style.display = "none"
+                document.getElementById("model-x-wheel1").style.display = "none"
+                document.getElementById("model-x-wheel2").style.display = "none"
+                // disable model x view
+
+
+                /*******************************************************/
+
+                // enable model 3 view
+                document.getElementById("model_3_page").style.display = "block"
+                document.getElementById("model-3-homebutton").style.display = "block"
+                document.getElementById("left-border-3").style.display = "block"
+                document.getElementById("model-3-color-white").style.display = "block"
+                document.getElementById("model-3-color-black").style.display = "block"
+                document.getElementById("model-3-color-red").style.display = "block"
+                document.getElementById("autopilot-model-3-colorp").style.display = "block"
+                document.getElementById("model-3-car-pic").style.display = "block"
+                document.getElementById("model-3-car-pic").src = "/media/Tesla/Model 3/model_3_white.png";
+                document.getElementById("right-border-3").style.display = "block"
+                document.getElementById("autopilot-model-3").style.display = "block"
+                document.getElementById("model-3-car-autopilot-preview").style.display = "block"
+                document.getElementById("model-3-wheel1").style.display = "block"
+                document.getElementById("model-3-wheel2").style.display = "block"
+                // enable model 3 view
+            } else if (status === 405) {
+                // There has been an error with the request!
+                showLogin()
+            }
+        }
+    };
 }
 /* -----  showModel3View function ends -----  */
 
@@ -1452,7 +1508,7 @@ function getShoppingCart() {
                         carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
                     } else if (JSONOfCarmodel.modelWheel === "Wheel 1" && JSONOfCarmodel.modelColor === "Red") {
                         carModelPic.src = '/media/Tesla/Model X/model_x_red.png'
-                        carModelColorPic.src = "url('/media/Tesla/red_color.jpg')"
+                        carModelColorPic.src = '/media/Tesla/red_color.jpg'
                         carWheelPic.src = '/media/Tesla/Model X/model_x_wheel1.png'
                     } else if (JSONOfCarmodel.modelWheel === "Wheel 2" && JSONOfCarmodel.modelColor === "White") {
                         carModelPic.src = '/media/Tesla/Model X/model_x_white_2.png'

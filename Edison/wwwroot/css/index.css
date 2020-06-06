@@ -97,12 +97,14 @@
     margin-left: calc(50% - 400px);
     border: solid;
     border-width: 2px;
-    background-color: grey;
+    border-radius: 23px;
+    background-color: antiquewhite;
+    opacity: 0.9;
 }
 
 #register-title {
     text-align: center;
-    font-family: Arial;
+    font-family: fantasy;
     font-size: 100px
 }
 
@@ -115,16 +117,17 @@
     margin-left: calc(50% - 400px);
     border: solid;
     border-width: 2px;
-    background-color:grey;
+    border-radius:23px;
+    background-color:antiquewhite;
+    opacity:0.9;
 }
 
 
 
 #login-title {
     text-align: center;
-    font-family: Arial;
+    font-family: fantasy;
     font-size: 100px;
-   
 }
 
 
